@@ -74,7 +74,7 @@ public class SampleProvider implements IDesignTimeDOMProvider {
 	/**
 	 * @see org.eclipse.dlkt.javascript.dom.support.IDesignTimeDOMProvider#filter(org.mozilla.javascript.Scriptable, java.lang.Object[])
 	 */
-	public Object[] resolveIds(Scriptable scope)
+	public Object[] resolveIds(Scriptable scope, String key)
 	{
 		return null;
 	}
