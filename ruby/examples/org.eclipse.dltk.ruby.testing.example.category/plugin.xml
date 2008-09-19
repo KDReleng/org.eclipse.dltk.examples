@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.dltk.testing.categoryEngine">
+      <testCategoryEngine
+            class="org.eclipse.dltk.ruby.testing.example.category.ExampleTestCategoryEngine"
+            id="org.eclipse.dltk.ruby.testing.example.category1"
+            name="Example category engine for Test::Unit returns APPLE or ORANGE categories - the result depends on what word is found in test name"
+            priority="0"
+            testingEngineId="org.eclipse.dltk.ruby.testing.testunit">
+      </testCategoryEngine>
+   </extension>
+
+</plugin>
