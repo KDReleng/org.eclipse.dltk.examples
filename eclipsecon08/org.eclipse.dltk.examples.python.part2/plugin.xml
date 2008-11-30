@@ -21,4 +21,14 @@
             priority="1">
       </parser>
    </extension>
+   <!-- since DLTK 1.0M3 -->
+   <extension
+		point="org.eclipse.dltk.core.buildParticipant">
+		<buildParticipant
+			class="org.eclipse.dltk.core.builder.ParserBuildParticipantFactory"
+			id="org.eclipse.dltk.examples.python.parser"
+			name="Example Python parser"
+			nature="org.eclipse.dltk.examples.python.nature">
+		</buildParticipant>
+   </extension>
 </plugin>
