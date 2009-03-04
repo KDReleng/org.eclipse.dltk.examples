@@ -4,7 +4,7 @@
    <extension
          id="sample"
          name="Sample Design Time DOM provider"
-         point="org.eclipse.dltk.javascript.core.domprovider">
+         point="org.eclipse.dltk.javascript.core.dom.support.domprovider">
       <provider
             class="org.eclipse.dltk.javascript.core.dom.support.sample.SampleProvider"
             id="org.eclipse.dltk.javascript.core.dom.support.sample.provider1"
