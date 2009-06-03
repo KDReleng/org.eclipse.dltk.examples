@@ -6,9 +6,10 @@ import org.eclipse.dltk.examples.internal.python.core.ExamplePythonLanguageToolk
 import org.eclipse.dltk.examples.internal.python.core.PythonCorePlugin;
 import org.eclipse.dltk.ui.AbstractDLTKUILanguageToolkit;
 import org.eclipse.dltk.ui.ScriptElementLabels;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.jface.preference.IPreferenceStore;
 
-public class ExamplePythonUILanguageToolkit extends AbstractDLTKUILanguageToolkit {
+public class ExamplePythonUILanguageToolkit extends
+		AbstractDLTKUILanguageToolkit {
 	private static class PythonScriptElementLabels extends ScriptElementLabels {
 		public void getElementLabel(IModelElement element, long flags,
 				StringBuffer buf) {
@@ -27,14 +28,15 @@ public class ExamplePythonUILanguageToolkit extends AbstractDLTKUILanguageToolki
 			return '$';
 		}
 	};
-	
+
 	public ScriptElementLabels getScriptElementLabels() {
 		return new PythonScriptElementLabels();
 	}
-	protected AbstractUIPlugin getUIPLugin() {
-		return PythonCorePlugin.getDefault();
-	}
+
 	public IDLTKLanguageToolkit getCoreToolkit() {
 		return ExamplePythonLanguageToolkit.getDefault();
+	}
+	public IPreferenceStore getPreferenceStore() {
+		return PythonCorePlugin.getDefault().getPreferenceStore();
 	}
 }
