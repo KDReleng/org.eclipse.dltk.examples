@@ -26,6 +26,7 @@ public class ExamplePythonTextTools extends ScriptTextTools {
 		return new ExamplePythonSourceViewerConfiguration(getColorManager(),
 				preferenceStore, editor, partitioning);
 	}
+
 	public IPartitionTokenScanner getPartitionScanner() {
 		return fPartitionScanner;
 	}
