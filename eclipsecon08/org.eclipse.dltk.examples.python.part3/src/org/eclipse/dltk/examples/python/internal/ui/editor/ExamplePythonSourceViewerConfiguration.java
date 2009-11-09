@@ -2,7 +2,6 @@ package org.eclipse.dltk.examples.python.internal.ui.editor;
 
 import org.eclipse.dltk.examples.python.internal.ui.editor.text.ExamplePythonCodeScanner;
 import org.eclipse.dltk.examples.python.internal.ui.editor.text.IExamplePythonColorConstants;
-import org.eclipse.dltk.internal.ui.editor.ScriptSourceViewer;
 import org.eclipse.dltk.ui.text.AbstractScriptScanner;
 import org.eclipse.dltk.ui.text.IColorManager;
 import org.eclipse.dltk.ui.text.ScriptPresentationReconciler;
@@ -15,7 +14,6 @@ import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
-import org.eclipse.jface.text.information.IInformationPresenter;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
@@ -40,18 +38,8 @@ public class ExamplePythonSourceViewerConfiguration extends
 		return new IAutoEditStrategy[] { new DefaultIndentLineAutoEditStrategy() };
 	}
 
-	public String[] getIndentPrefixes(ISourceViewer sourceViewer,
-			String contentType) {
-		return new String[] { "\t", "        " };
-	}
-
 	protected ContentAssistPreference getContentAssistPreference() {
 		return ExamplePythonContentAssistPreference.getDefault();
-	}
-
-	public IInformationPresenter getOutlinePresenter(ScriptSourceViewer viewer,
-			boolean doCodeResolve) {
-		return null;
 	}
 
 	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
