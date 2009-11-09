@@ -2,6 +2,7 @@ package org.eclipse.dltk.examples.python.internal.completion;
 
 import java.util.Map;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.dltk.codeassist.ICompletionEngine;
 import org.eclipse.dltk.compiler.env.ISourceModule;
 import org.eclipse.dltk.core.CompletionProposal;
@@ -109,5 +110,10 @@ public class ExamplePythonCompletionEngine implements ICompletionEngine {
 				completionOffset - this.offset);
 
 		return proposal;
+	}
+
+	@Override
+	public void setProgressMonitor(IProgressMonitor nullProgressMonitor) {
+		// empty
 	}
 }
