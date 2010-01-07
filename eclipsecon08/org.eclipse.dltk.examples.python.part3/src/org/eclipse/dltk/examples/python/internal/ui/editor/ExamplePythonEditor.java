@@ -5,6 +5,7 @@ import org.eclipse.dltk.examples.internal.python.core.ExamplePythonLanguageToolk
 import org.eclipse.dltk.examples.python.internal.ExamplePythonUI;
 import org.eclipse.dltk.internal.ui.editor.ScriptEditor;
 import org.eclipse.dltk.ui.text.ScriptTextTools;
+import org.eclipse.dltk.ui.text.folding.IFoldingStructureProvider;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentExtension3;
@@ -47,5 +48,15 @@ public class ExamplePythonEditor extends ScriptEditor {
 				participant.setup(document);
 			}
 		}
+	}
+
+	private IFoldingStructureProvider foldingStructureProvider = null;
+
+	@Override
+	protected IFoldingStructureProvider getFoldingStructureProvider() {
+		if (foldingStructureProvider == null) {
+			foldingStructureProvider = new ExamplePythonFoldingStructureProvider();
+		}
+		return foldingStructureProvider;
 	}
 }
