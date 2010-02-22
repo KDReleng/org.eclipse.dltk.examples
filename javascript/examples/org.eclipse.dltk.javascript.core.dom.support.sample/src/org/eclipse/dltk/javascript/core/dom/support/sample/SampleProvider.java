@@ -23,10 +23,6 @@ public class SampleProvider implements IDesignTimeDOMProvider {
 	private static final String FORM = "form";
 	private static final String SAY_HELLO = "sayHello";
 
-	public void setInitializationData(IConfigurationElement config,
-			String propertyName, Object data) throws CoreException {
-	}
-
 	public Class[] resolveHostObjectClasses(ISourceModule module) {
 		// second way to contribute class;
 		return new Class[] { OtherHost.class };
@@ -72,18 +68,18 @@ public class SampleProvider implements IDesignTimeDOMProvider {
 	}
 
 	/**
-	 * @see org.eclipse.dlkt.javascript.dom.support.IDesignTimeDOMProvider#filter(org.mozilla.javascript.Scriptable, java.lang.Object[])
+	 * @see org.eclipse.dlkt.javascript.dom.support.IDesignTimeDOMProvider#filter(org.mozilla.javascript.Scriptable,
+	 *      java.lang.Object[])
 	 */
-	public Object[] resolveIds(Scriptable scope, String key)
-	{
+	public Object[] resolveIds(Scriptable scope, String key) {
 		return null;
 	}
 
 	/**
-	 * @see org.eclipse.dlkt.javascript.dom.support.IDesignTimeDOMProvider#getProposal(org.mozilla.javascript.Scriptable, java.lang.String)
+	 * @see org.eclipse.dlkt.javascript.dom.support.IDesignTimeDOMProvider#getProposal(org.mozilla.javascript.Scriptable,
+	 *      java.lang.String)
 	 */
-	public IProposalHolder getProposal(Scriptable scope, String key)
-	{
+	public IProposalHolder getProposal(Scriptable scope, String key) {
 		return null;
 	}
 }
