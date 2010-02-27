@@ -12,20 +12,20 @@
  Contributors:
      xored software, Inc. - initial API and Implementation (Alex Panchenko)
 
- $Id: plugin.xml,v 1.1 2010/02/27 12:12:18 apanchenk Exp $
+ $Id: plugin.xml,v 1.2 2010/02/27 12:38:23 apanchenk Exp $
 -->
 
 <plugin>
 
    <extension point="org.eclipse.ui.newWizards">
       <category
-            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            id="org.eclipse.dltk.javascript.tools"
             name="%_UI_Wizard_category"/>
       <wizard
             id="org.eclipse.dltk.javascript.internal.model.references.presentation.ReferenceModelModelWizardID"
             name="%_UI_ReferenceModelModelWizard_label"
             class="org.eclipse.dltk.javascript.internal.model.references.presentation.ReferenceModelModelWizard"
-            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            category="org.eclipse.dltk.javascript.tools"
             icon="icons/full/obj16/ReferenceModelModelFile.gif">
          <description>%_UI_ReferenceModelModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
