@@ -9,7 +9,7 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: ParameterItemProvider.java,v 1.1 2010/02/27 12:11:31 apanchenk Exp $
+ * $Id: ParameterItemProvider.java,v 1.2 2010/02/27 12:53:19 apanchenk Exp $
  */
 package org.eclipse.dltk.javascript.internal.model.references.provider;
 
@@ -159,14 +159,21 @@ public class ParameterItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Parameter)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_Parameter_type") : //$NON-NLS-1$
-			getString("_UI_Parameter_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		final Parameter parameter = (Parameter) object;
+		final String label = parameter.getName();
+		if (label == null || label.length() == 0) {
+			return getString("_UI_Parameter_type"); //$NON-NLS-1$
+		}
+		final StringBuilder sb = new StringBuilder(label);
+		if (parameter.getType() != null) {
+			sb.append(':');
+			sb.append(parameter.getType().getName());
+		}
+		return sb.toString();
 	}
 
 	/**
