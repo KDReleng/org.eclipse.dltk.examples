@@ -9,7 +9,7 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: PropertyItemProvider.java,v 1.1 2010/02/27 12:11:31 apanchenk Exp $
+ * $Id: PropertyItemProvider.java,v 1.2 2010/02/27 12:31:49 apanchenk Exp $
  */
 package org.eclipse.dltk.javascript.internal.model.references.provider;
 
@@ -87,10 +87,17 @@ public class PropertyItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Property)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_Property_type") : //$NON-NLS-1$
-			label;
+		final Property property = (Property) object;
+		final String label = property.getName();
+		if (label == null || label.length() == 0) {
+			return getString("_UI_Property_type"); //$NON-NLS-1$
+		}
+		StringBuilder sb = new StringBuilder(label);
+		if (property.getType() != null) {
+			sb.append(':');
+			sb.append(property.getType().getName());
+		}
+		return sb.toString();
 	}
 
 	/**

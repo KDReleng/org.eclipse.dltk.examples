@@ -9,7 +9,7 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: MethodItemProvider.java,v 1.1 2010/02/27 12:11:31 apanchenk Exp $
+ * $Id: MethodItemProvider.java,v 1.2 2010/02/27 12:31:49 apanchenk Exp $
  */
 package org.eclipse.dltk.javascript.internal.model.references.provider;
 
@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.dltk.javascript.internal.model.references.Method;
+import org.eclipse.dltk.javascript.internal.model.references.Parameter;
 import org.eclipse.dltk.javascript.internal.model.references.ReferenceModelFactory;
 import org.eclipse.dltk.javascript.internal.model.references.ReferenceModelPackage;
 
@@ -122,10 +123,33 @@ public class MethodItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Method)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_Method_type") : //$NON-NLS-1$
-				label + "()"; //$NON-NLS-1$
+		final Method method = (Method) object;
+		final StringBuilder sb = new StringBuilder();
+		final String label = method.getName();
+		if (label == null || label.length() == 0) {
+			sb.append(getString("_UI_Method_type"));
+		} else {
+			sb.append(label);
+		}
+		sb.append('(');
+		int parameterIndex = 0;
+		for (Parameter parameter : method.getParameters()) {
+			if (parameterIndex != 0) {
+				sb.append(", ");
+			}
+			sb.append(parameter.getName());
+			if (parameter.getType() != null) {
+				sb.append(':');
+				sb.append(parameter.getType().getName());
+			}
+			++parameterIndex;
+		}
+		sb.append(')');
+		if (method.getType() != null) {
+			sb.append(':');
+			sb.append(method.getType().getName());
+		}
+		return sb.toString();
 	}
 
 	/**
