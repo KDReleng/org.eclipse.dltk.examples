@@ -9,7 +9,7 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: ParameterItemProvider.java,v 1.2 2010/02/27 12:53:19 apanchenk Exp $
+ * $Id: ParameterItemProvider.java,v 1.3 2010/02/27 13:36:33 apanchenk Exp $
  */
 package org.eclipse.dltk.javascript.internal.model.references.provider;
 
@@ -189,6 +189,7 @@ public class ParameterItemProvider
 
 		switch (notification.getFeatureID(Parameter.class)) {
 			case ReferenceModelPackage.PARAMETER__NAME:
+			case ReferenceModelPackage.PARAMETER__TYPE:
 			case ReferenceModelPackage.PARAMETER__OPTIONAL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

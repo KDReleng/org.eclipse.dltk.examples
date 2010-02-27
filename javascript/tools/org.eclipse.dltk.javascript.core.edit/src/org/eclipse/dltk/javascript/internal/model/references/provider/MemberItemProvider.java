@@ -9,7 +9,7 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: MemberItemProvider.java,v 1.2 2010/02/27 13:01:13 apanchenk Exp $
+ * $Id: MemberItemProvider.java,v 1.3 2010/02/27 13:36:33 apanchenk Exp $
  */
 package org.eclipse.dltk.javascript.internal.model.references.provider;
 
@@ -171,7 +171,7 @@ public class MemberItemProvider
 
 		switch (notification.getFeatureID(Member.class)) {
 			case ReferenceModelPackage.MEMBER__NAME:
-			case ReferenceModelPackage.MEMBER__DESCRIPTION:
+			case ReferenceModelPackage.MEMBER__TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
