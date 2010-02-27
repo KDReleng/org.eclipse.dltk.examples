@@ -9,7 +9,7 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: MemberItemProvider.java,v 1.1 2010/02/27 12:11:31 apanchenk Exp $
+ * $Id: MemberItemProvider.java,v 1.2 2010/02/27 13:01:13 apanchenk Exp $
  */
 package org.eclipse.dltk.javascript.internal.model.references.provider;
 
@@ -137,7 +137,7 @@ public class MemberItemProvider
 				 getString("_UI_PropertyDescriptor_description", "_UI_Member_description_feature", "_UI_Member_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				 ReferenceModelPackage.Literals.MEMBER__DESCRIPTION,
 				 true,
-				 false,
+				 true,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
