@@ -9,7 +9,7 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: TypeItemProvider.java,v 1.1 2010/02/27 12:11:31 apanchenk Exp $
+ * $Id: TypeItemProvider.java,v 1.2 2010/02/27 12:46:11 apanchenk Exp $
  */
 package org.eclipse.dltk.javascript.internal.model.references.provider;
 
@@ -146,14 +146,14 @@ public class TypeItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		String label = ((Type)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Type_type") : //$NON-NLS-1$
-			getString("_UI_Type_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+			label;
 	}
 
 	/**
