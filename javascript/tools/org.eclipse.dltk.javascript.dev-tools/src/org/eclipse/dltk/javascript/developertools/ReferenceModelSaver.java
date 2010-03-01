@@ -34,6 +34,7 @@ import org.eclipse.dltk.javascript.internal.model.references.Method;
 import org.eclipse.dltk.javascript.internal.model.references.Parameter;
 import org.eclipse.dltk.javascript.internal.model.references.ReferenceModelFactory;
 import org.eclipse.dltk.javascript.internal.model.references.Type;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 
@@ -61,7 +62,9 @@ public class ReferenceModelSaver {
 						.getName());
 			}
 		});
-		resource.getContents().addAll(typeList);
+		for (Type type : typeList) {
+			resource.getContents().add((EObject) type);
+		}
 		resource.setEncoding("UTF-8");
 		resource.save(System.out, null);
 	}
