@@ -29,11 +29,11 @@ import org.eclipse.dltk.internal.javascript.typeinference.NativeNumberReference;
 import org.eclipse.dltk.internal.javascript.typeinference.NativeStringReference;
 import org.eclipse.dltk.internal.javascript.typeinference.NativeXMLReference;
 import org.eclipse.dltk.internal.javascript.typeinference.StandardSelfCompletingReference;
-import org.eclipse.dltk.javascript.internal.model.references.Member;
-import org.eclipse.dltk.javascript.internal.model.references.Method;
-import org.eclipse.dltk.javascript.internal.model.references.Parameter;
-import org.eclipse.dltk.javascript.internal.model.references.ReferenceModelFactory;
-import org.eclipse.dltk.javascript.internal.model.references.Type;
+import org.eclipse.dltk.javascript.typeinfo.model.Member;
+import org.eclipse.dltk.javascript.typeinfo.model.Method;
+import org.eclipse.dltk.javascript.typeinfo.model.Parameter;
+import org.eclipse.dltk.javascript.typeinfo.model.Type;
+import org.eclipse.dltk.javascript.typeinfo.model.TypeInfoModelFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
@@ -90,11 +90,11 @@ public class ReferenceModelSaver {
 			SelfCompletingReference ref = (SelfCompletingReference) reference;
 			final Member member;
 			if (reference.isFunctionRef()) {
-				Method method = ReferenceModelFactory.eINSTANCE.createMethod();
+				Method method = TypeInfoModelFactory.eINSTANCE.createMethod();
 				final String[] parameterNames = ref.getParameterNames();
 				if (parameterNames != null) {
 					for (String paramName : parameterNames) {
-						final Parameter parameter = ReferenceModelFactory.eINSTANCE
+						final Parameter parameter = TypeInfoModelFactory.eINSTANCE
 								.createParameter();
 						parameter.setName(paramName);
 						parameter.setOptional(!isIdentifier(paramName));
@@ -103,7 +103,7 @@ public class ReferenceModelSaver {
 				}
 				member = method;
 			} else {
-				member = ReferenceModelFactory.eINSTANCE.createProperty();
+				member = TypeInfoModelFactory.eINSTANCE.createProperty();
 			}
 			member.setName(reference.getName());
 			member.setType(types.get(ref.getClass()));
@@ -130,7 +130,7 @@ public class ReferenceModelSaver {
 	}
 
 	private static Type createType(String name) {
-		Type type = ReferenceModelFactory.eINSTANCE.createType();
+		Type type = TypeInfoModelFactory.eINSTANCE.createType();
 		type.setName(name);
 		return type;
 	}
