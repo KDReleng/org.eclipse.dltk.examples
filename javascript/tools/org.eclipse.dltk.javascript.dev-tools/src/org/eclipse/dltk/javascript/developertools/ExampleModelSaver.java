@@ -15,6 +15,7 @@ import org.eclipse.dltk.javascript.typeinfo.model.Property;
 import org.eclipse.dltk.javascript.typeinfo.model.Type;
 import org.eclipse.dltk.javascript.typeinfo.model.TypeInfoModelFactory;
 import org.eclipse.dltk.javascript.typeinfo.model.TypeInfoModelLoader;
+import org.eclipse.dltk.javascript.typeinfo.model.TypeKind;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
@@ -32,6 +33,7 @@ public class ExampleModelSaver implements IApplication {
 		final XMIResource resource = new XMIResourceImpl();
 		final Type exampleType = typeInfoFactory.createType();
 		exampleType.setName("Example");
+		exampleType.setKind(TypeKind.USER);
 		//
 		final Property id = typeInfoFactory.createProperty();
 		id.setName("id");
