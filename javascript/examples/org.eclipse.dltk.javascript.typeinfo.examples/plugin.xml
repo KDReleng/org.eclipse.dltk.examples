@@ -3,5 +3,6 @@
 <plugin>
 	<extension point="org.eclipse.dltk.javascript.core.typeinfo">
 		<builder class="org.eclipse.dltk.javascript.typeinfo.examples.ExampleModelBuilder"/>
+		<provider class="org.eclipse.dltk.javascript.typeinfo.examples.ExampleTypeProvider"/>
 	</extension>
 </plugin>

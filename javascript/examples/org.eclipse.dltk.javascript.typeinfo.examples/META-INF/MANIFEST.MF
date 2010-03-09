@@ -4,5 +4,6 @@ Bundle-Name: Examples
 Bundle-SymbolicName: org.eclipse.dltk.javascript.typeinfo.examples;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Require-Bundle: org.eclipse.dltk.javascript.core,
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.dltk.javascript.core,
  org.eclipse.dltk.javascript.parser
