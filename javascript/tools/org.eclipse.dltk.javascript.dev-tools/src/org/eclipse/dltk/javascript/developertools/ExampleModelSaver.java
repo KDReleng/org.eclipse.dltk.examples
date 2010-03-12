@@ -33,7 +33,7 @@ public class ExampleModelSaver implements IApplication {
 		final XMIResource resource = new XMIResourceImpl();
 		final Type exampleType = typeInfoFactory.createType();
 		exampleType.setName("Example");
-		exampleType.setKind(TypeKind.USER);
+		exampleType.setKind(TypeKind.JAVASCRIPT);
 		//
 		final Property id = typeInfoFactory.createProperty();
 		id.setName("id");

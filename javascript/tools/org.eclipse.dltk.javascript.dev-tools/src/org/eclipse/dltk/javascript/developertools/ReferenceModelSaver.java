@@ -32,6 +32,7 @@ import org.eclipse.dltk.internal.javascript.typeinference.StandardSelfCompleting
 import org.eclipse.dltk.javascript.typeinfo.model.Member;
 import org.eclipse.dltk.javascript.typeinfo.model.Method;
 import org.eclipse.dltk.javascript.typeinfo.model.Parameter;
+import org.eclipse.dltk.javascript.typeinfo.model.ParameterKind;
 import org.eclipse.dltk.javascript.typeinfo.model.Type;
 import org.eclipse.dltk.javascript.typeinfo.model.TypeInfoModelFactory;
 import org.eclipse.emf.ecore.EObject;
@@ -97,7 +98,9 @@ public class ReferenceModelSaver {
 						final Parameter parameter = TypeInfoModelFactory.eINSTANCE
 								.createParameter();
 						parameter.setName(paramName);
-						parameter.setOptional(!isIdentifier(paramName));
+						parameter
+								.setKind(isIdentifier(paramName) ? ParameterKind.NORMAL
+										: ParameterKind.OPTIONAL);
 						method.getParameters().add(parameter);
 					}
 				}
