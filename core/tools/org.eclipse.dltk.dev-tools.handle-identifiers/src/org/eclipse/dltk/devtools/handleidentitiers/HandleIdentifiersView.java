@@ -1,7 +1,11 @@
 package org.eclipse.dltk.devtools.handleidentitiers;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -13,6 +17,7 @@ import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.ModelException;
 import org.eclipse.dltk.ui.viewsupport.ScriptUILabelProvider;
 import org.eclipse.jface.util.SafeRunnable;
+import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -21,12 +26,14 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.part.ViewPart;
@@ -56,10 +63,37 @@ public class HandleIdentifiersView extends ViewPart {
 
 	}
 
+	private static class ElementTypeDescriber {
+		final Map<Integer, String> names = new HashMap<Integer, String>();
+
+		public ElementTypeDescriber() {
+			for (Field field : IModelElement.class.getFields()) {
+				if (Modifier.isPublic(field.getModifiers())
+						&& Modifier.isStatic(field.getModifiers())) {
+					try {
+						Integer value = (Integer) field.get(null);
+						names.put(value.intValue(), field.getName());
+					} catch (Exception e) {
+						//
+					}
+				}
+			}
+		}
+
+		public String describe(int elementType) {
+			String name = names.get(elementType);
+			if (name == null) {
+				name = "#" + elementType;
+			}
+			return name;
+		}
+	}
+
 	private static class HandleIdentifierLabelProvider extends LabelProvider
-			implements ITableLabelProvider {
+			implements ITableLabelProvider, IColorProvider {
 
 		private final ScriptUILabelProvider scriptProvider = new ScriptUILabelProvider();
+		private final ElementTypeDescriber typeDescriber = new ElementTypeDescriber();
 
 		@Override
 		public String getText(Object element) {
@@ -82,7 +116,10 @@ public class HandleIdentifiersView extends ViewPart {
 				final Record record = (Record) element;
 				switch (columnIndex) {
 				case 0:
-					return scriptProvider.getText(record.element);
+					return scriptProvider.getText(record.element)
+							+ " ["
+							+ typeDescriber.describe(record.element
+									.getElementType()) + "]";
 				case 1:
 					return record.identifier;
 				case 2:
@@ -92,10 +129,28 @@ public class HandleIdentifiersView extends ViewPart {
 			return super.getText(element);
 		}
 
+		public Color getBackground(Object element) {
+			return null;
+		}
+
+		public Color getForeground(Object element) {
+			if (element instanceof Record) {
+				final Record record = (Record) element;
+				if (record.status == Status.WRONG
+						|| record.status == Status.EXCEPTION) {
+					return Display.getDefault().getSystemColor(SWT.COLOR_RED);
+				} else if (record.status != Status.OK) {
+					return Display.getDefault().getSystemColor(
+							SWT.COLOR_DARK_GRAY);
+				}
+			}
+			return null;
+		}
+
 	}
 
 	private enum Status {
-		OK, EXCEPTION, ERROR, NULL
+		OK, EXCEPTION, WRONG, NULL
 	}
 
 	private static class Record {
@@ -181,7 +236,7 @@ public class HandleIdentifiersView extends ViewPart {
 					} else if (x.equals(element)) {
 						status = Status.OK;
 					} else {
-						status = Status.ERROR;
+						status = Status.WRONG;
 					}
 				} catch (Exception e) {
 					status = Status.EXCEPTION;
