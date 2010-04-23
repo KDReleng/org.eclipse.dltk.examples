@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.dltk.codeassist.ICompletionEngine;
-import org.eclipse.dltk.compiler.env.ISourceModule;
+import org.eclipse.dltk.compiler.env.IModuleSource;
 import org.eclipse.dltk.core.CompletionProposal;
 import org.eclipse.dltk.core.CompletionRequestor;
 import org.eclipse.dltk.core.DLTKCore;
@@ -22,7 +22,7 @@ public class ExamplePythonCompletionEngine implements ICompletionEngine {
 	private int actualCompletionPosition;
 	private int offset;
 
-	public void complete(ISourceModule module, int position, int pos) {
+	public void complete(IModuleSource module, int position, int pos) {
 		this.actualCompletionPosition = position;
 		this.offset = pos;
 		String[] keywords = new String[] { "and", "del", "for", "is", "raise",
@@ -82,8 +82,8 @@ public class ExamplePythonCompletionEngine implements ICompletionEngine {
 					break;
 				}
 			}
-			proposal.setName(name.toCharArray());
-			proposal.setCompletion(name.toCharArray());
+			proposal.setName(name);
+			proposal.setCompletion(name);
 			proposal.setReplaceRange(actualCompletionPosition - offset,
 					actualCompletionPosition - offset);
 			proposal.setRelevance(20);

@@ -11,7 +11,7 @@ import org.eclipse.dltk.ast.declarations.TypeDeclaration;
 import org.eclipse.dltk.ast.expressions.Expression;
 import org.eclipse.dltk.ast.references.VariableReference;
 import org.eclipse.dltk.codeassist.ISelectionEngine;
-import org.eclipse.dltk.compiler.env.ISourceModule;
+import org.eclipse.dltk.compiler.env.IModuleSource;
 import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.core.IModelElementVisitor;
@@ -22,7 +22,7 @@ import org.eclipse.dltk.python.parser.ast.expressions.ExtendedVariableReference;
 public class ExamplePythonSelectionEngine implements ISelectionEngine {
 	private org.eclipse.dltk.core.ISourceModule sourceModule;
 
-	public IModelElement[] select(ISourceModule module, final int offset, int i) {
+	public IModelElement[] select(IModuleSource module, final int offset, int i) {
 		sourceModule = (org.eclipse.dltk.core.ISourceModule) module
 				.getModelElement();
 		ModuleDeclaration moduleDeclaration = SourceParserUtil
