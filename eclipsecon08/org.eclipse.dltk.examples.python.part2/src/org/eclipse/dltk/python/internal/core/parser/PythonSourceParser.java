@@ -16,6 +16,7 @@ import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenStream;
 import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
 import org.eclipse.dltk.ast.parser.AbstractSourceParser;
+import org.eclipse.dltk.compiler.env.IModuleSource;
 import org.eclipse.dltk.compiler.problem.IProblemReporter;
 import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.python.internal.core.parsers.DLTKPythonErrorReporter;
@@ -48,11 +49,12 @@ public class PythonSourceParser extends AbstractSourceParser {
 	 * Parses selected context to module declaration using python parser.
 	 * 
 	 */
-	public ModuleDeclaration parse(char[] fileName, char[] content0, IProblemReporter reporter) {// throws
+	public ModuleDeclaration parse(IModuleSource source, IProblemReporter reporter) {// throws
 		this.problemReporter = reporter;
 		
+		final String content0 = source.getSourceContents();
 		PythonModuleDeclaration moduleDeclaration = new PythonModuleDeclaration(
-				content0.length, true);
+				content0.length(), true);
 
 		CharStream st = new ANTLRStringStream(new String(content0));
 		python_v3Lexer pythonLexer = new MyLexer(st);
@@ -65,8 +67,8 @@ public class PythonSourceParser extends AbstractSourceParser {
 
 		python_v3Parser pythonParser = new python_v3Parser(this.fTokenStream);
 		pythonParser.decl = moduleDeclaration;
-		pythonParser.length = content0.length;
-		pythonParser.converter = new DLTKTokenConverter(content0);
+		pythonParser.length = content0.length();
+		pythonParser.converter = new DLTKTokenConverter(content0.toCharArray());
 		pythonParser.reporter = new DLTKPythonErrorReporter(pythonParser.converter, problemReporter, pythonParser);
 
 		try {
