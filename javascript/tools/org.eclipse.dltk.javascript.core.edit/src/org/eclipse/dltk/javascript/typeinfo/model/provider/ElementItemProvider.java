@@ -9,16 +9,16 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: ParameterItemProvider.java,v 1.3 2010/02/27 13:36:33 apanchenk Exp $
+ * $Id: ElementItemProvider.java,v 1.1 2010/05/13 08:00:41 apanchenk Exp $
  */
-package org.eclipse.dltk.javascript.internal.model.references.provider;
+package org.eclipse.dltk.javascript.typeinfo.model.provider;
 
 
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.dltk.javascript.internal.model.references.Parameter;
-import org.eclipse.dltk.javascript.internal.model.references.ReferenceModelPackage;
+import org.eclipse.dltk.javascript.typeinfo.model.Element;
+import org.eclipse.dltk.javascript.typeinfo.model.TypeInfoModelPackage;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -37,12 +37,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.dltk.javascript.internal.model.references.Parameter} object.
+ * This is the item provider adapter for a {@link org.eclipse.dltk.javascript.typeinfo.model.Element} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ParameterItemProvider
+public class ElementItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -56,7 +56,7 @@ public class ParameterItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ParameterItemProvider(AdapterFactory adapterFactory) {
+	public ElementItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -72,8 +72,9 @@ public class ParameterItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
-			addTypePropertyDescriptor(object);
-			addOptionalPropertyDescriptor(object);
+			addDeprecatedPropertyDescriptor(object);
+			addDescriptionPropertyDescriptor(object);
+			addVisiblePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -89,9 +90,9 @@ public class ParameterItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Parameter_name_feature"), //$NON-NLS-1$
-				 getString("_UI_PropertyDescriptor_description", "_UI_Parameter_name_feature", "_UI_Parameter_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				 ReferenceModelPackage.Literals.PARAMETER__NAME,
+				 getString("_UI_Element_name_feature"), //$NON-NLS-1$
+				 getString("_UI_PropertyDescriptor_description", "_UI_Element_name_feature", "_UI_Element_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				 TypeInfoModelPackage.Literals.ELEMENT__NAME,
 				 true,
 				 false,
 				 false,
@@ -101,41 +102,19 @@ public class ParameterItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Type feature.
+	 * This adds a property descriptor for the Deprecated feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addTypePropertyDescriptor(Object object) {
+	protected void addDeprecatedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Parameter_type_feature"), //$NON-NLS-1$
-				 getString("_UI_PropertyDescriptor_description", "_UI_Parameter_type_feature", "_UI_Parameter_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				 ReferenceModelPackage.Literals.PARAMETER__TYPE,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Optional feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addOptionalPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Parameter_optional_feature"), //$NON-NLS-1$
-				 getString("_UI_PropertyDescriptor_description", "_UI_Parameter_optional_feature", "_UI_Parameter_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				 ReferenceModelPackage.Literals.PARAMETER__OPTIONAL,
+				 getString("_UI_Element_deprecated_feature"), //$NON-NLS-1$
+				 getString("_UI_PropertyDescriptor_description", "_UI_Element_deprecated_feature", "_UI_Element_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				 TypeInfoModelPackage.Literals.ELEMENT__DEPRECATED,
 				 true,
 				 false,
 				 false,
@@ -145,35 +124,61 @@ public class ParameterItemProvider
 	}
 
 	/**
-	 * This returns Parameter.gif.
+	 * This adds a property descriptor for the Description feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Parameter")); //$NON-NLS-1$
+	protected void addDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Element_description_feature"), //$NON-NLS-1$
+				 getString("_UI_PropertyDescriptor_description", "_UI_Element_description_feature", "_UI_Element_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				 TypeInfoModelPackage.Literals.ELEMENT__DESCRIPTION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Visible feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addVisiblePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Element_visible_feature"), //$NON-NLS-1$
+				 getString("_UI_PropertyDescriptor_description", "_UI_Element_visible_feature", "_UI_Element_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				 TypeInfoModelPackage.Literals.ELEMENT__VISIBLE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		final Parameter parameter = (Parameter) object;
-		final String label = parameter.getName();
-		if (label == null || label.length() == 0) {
-			return getString("_UI_Parameter_type"); //$NON-NLS-1$
-		}
-		final StringBuilder sb = new StringBuilder(label);
-		if (parameter.getType() != null) {
-			sb.append(':');
-			sb.append(parameter.getType().getName());
-		}
-		return sb.toString();
+		String label = ((Element)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_Element_type") : //$NON-NLS-1$
+			getString("_UI_Element_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -187,10 +192,11 @@ public class ParameterItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Parameter.class)) {
-			case ReferenceModelPackage.PARAMETER__NAME:
-			case ReferenceModelPackage.PARAMETER__TYPE:
-			case ReferenceModelPackage.PARAMETER__OPTIONAL:
+		switch (notification.getFeatureID(Element.class)) {
+			case TypeInfoModelPackage.ELEMENT__NAME:
+			case TypeInfoModelPackage.ELEMENT__DEPRECATED:
+			case TypeInfoModelPackage.ELEMENT__DESCRIPTION:
+			case TypeInfoModelPackage.ELEMENT__VISIBLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

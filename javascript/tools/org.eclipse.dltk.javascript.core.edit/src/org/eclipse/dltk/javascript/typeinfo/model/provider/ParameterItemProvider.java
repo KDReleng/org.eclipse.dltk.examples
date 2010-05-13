@@ -9,16 +9,16 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: MemberItemProvider.java,v 1.3 2010/02/27 13:36:33 apanchenk Exp $
+ * $Id: ParameterItemProvider.java,v 1.1 2010/05/13 08:00:41 apanchenk Exp $
  */
-package org.eclipse.dltk.javascript.internal.model.references.provider;
+package org.eclipse.dltk.javascript.typeinfo.model.provider;
 
 
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.dltk.javascript.internal.model.references.Member;
-import org.eclipse.dltk.javascript.internal.model.references.ReferenceModelPackage;
+import org.eclipse.dltk.javascript.typeinfo.model.Parameter;
+import org.eclipse.dltk.javascript.typeinfo.model.TypeInfoModelPackage;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -37,12 +37,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.dltk.javascript.internal.model.references.Member} object.
+ * This is the item provider adapter for a {@link org.eclipse.dltk.javascript.typeinfo.model.Parameter} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class MemberItemProvider
+public class ParameterItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -56,7 +56,7 @@ public class MemberItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MemberItemProvider(AdapterFactory adapterFactory) {
+	public ParameterItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -73,7 +73,7 @@ public class MemberItemProvider
 
 			addNamePropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
-			addDescriptionPropertyDescriptor(object);
+			addKindPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -89,9 +89,9 @@ public class MemberItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Member_name_feature"), //$NON-NLS-1$
-				 getString("_UI_PropertyDescriptor_description", "_UI_Member_name_feature", "_UI_Member_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				 ReferenceModelPackage.Literals.MEMBER__NAME,
+				 getString("_UI_Parameter_name_feature"), //$NON-NLS-1$
+				 getString("_UI_PropertyDescriptor_description", "_UI_Parameter_name_feature", "_UI_Parameter_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				 TypeInfoModelPackage.Literals.PARAMETER__NAME,
 				 true,
 				 false,
 				 false,
@@ -111,9 +111,9 @@ public class MemberItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Member_type_feature"), //$NON-NLS-1$
-				 getString("_UI_PropertyDescriptor_description", "_UI_Member_type_feature", "_UI_Member_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				 ReferenceModelPackage.Literals.MEMBER__TYPE,
+				 getString("_UI_Parameter_type_feature"), //$NON-NLS-1$
+				 getString("_UI_PropertyDescriptor_description", "_UI_Parameter_type_feature", "_UI_Parameter_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				 TypeInfoModelPackage.Literals.PARAMETER__TYPE,
 				 true,
 				 false,
 				 true,
@@ -123,21 +123,21 @@ public class MemberItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Description feature.
+	 * This adds a property descriptor for the Kind feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDescriptionPropertyDescriptor(Object object) {
+	protected void addKindPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Member_description_feature"), //$NON-NLS-1$
-				 getString("_UI_PropertyDescriptor_description", "_UI_Member_description_feature", "_UI_Member_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				 ReferenceModelPackage.Literals.MEMBER__DESCRIPTION,
+				 getString("_UI_Parameter_kind_feature"), //$NON-NLS-1$
+				 getString("_UI_PropertyDescriptor_description", "_UI_Parameter_kind_feature", "_UI_Parameter_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				 TypeInfoModelPackage.Literals.PARAMETER__KIND,
 				 true,
-				 true,
+				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -145,17 +145,35 @@ public class MemberItemProvider
 	}
 
 	/**
-	 * This returns the label text for the adapted class.
+	 * This returns Parameter.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Parameter")); //$NON-NLS-1$
+	}
+
+	/**
+	 * This returns the label text for the adapted class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
 	public String getText(Object object) {
-		String label = ((Member)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_Member_type") : //$NON-NLS-1$
-			getString("_UI_Member_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		final Parameter parameter = (Parameter) object;
+		final String label = parameter.getName();
+		if (label == null || label.length() == 0) {
+			return getString("_UI_Parameter_type"); //$NON-NLS-1$
+		}
+		final StringBuilder sb = new StringBuilder(label);
+		if (parameter.getType() != null) {
+			sb.append(':');
+			sb.append(parameter.getType().getName());
+		}
+		return sb.toString();
 	}
 
 	/**
@@ -169,9 +187,10 @@ public class MemberItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Member.class)) {
-			case ReferenceModelPackage.MEMBER__NAME:
-			case ReferenceModelPackage.MEMBER__TYPE:
+		switch (notification.getFeatureID(Parameter.class)) {
+			case TypeInfoModelPackage.PARAMETER__NAME:
+			case TypeInfoModelPackage.PARAMETER__TYPE:
+			case TypeInfoModelPackage.PARAMETER__KIND:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

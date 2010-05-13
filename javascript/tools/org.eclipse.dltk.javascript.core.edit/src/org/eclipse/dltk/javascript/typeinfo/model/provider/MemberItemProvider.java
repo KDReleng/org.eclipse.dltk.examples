@@ -9,34 +9,38 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: PropertyItemProvider.java,v 1.2 2010/02/27 12:31:49 apanchenk Exp $
+ * $Id: MemberItemProvider.java,v 1.1 2010/05/13 08:00:41 apanchenk Exp $
  */
-package org.eclipse.dltk.javascript.internal.model.references.provider;
+package org.eclipse.dltk.javascript.typeinfo.model.provider;
 
 
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.dltk.javascript.internal.model.references.Property;
+import org.eclipse.dltk.javascript.typeinfo.model.Member;
+import org.eclipse.dltk.javascript.typeinfo.model.TypeInfoModelPackage;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.dltk.javascript.internal.model.references.Property} object.
+ * This is the item provider adapter for a {@link org.eclipse.dltk.javascript.typeinfo.model.Member} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class PropertyItemProvider
-	extends MemberItemProvider
+public class MemberItemProvider
+	extends ElementItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -49,7 +53,7 @@ public class PropertyItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PropertyItemProvider(AdapterFactory adapterFactory) {
+	public MemberItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -64,40 +68,68 @@ public class PropertyItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addTypePropertyDescriptor(object);
+			addStaticPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This returns Property.gif.
+	 * This adds a property descriptor for the Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Property")); //$NON-NLS-1$
+	protected void addTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Member_type_feature"), //$NON-NLS-1$
+				 getString("_UI_PropertyDescriptor_description", "_UI_Member_type_feature", "_UI_Member_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				 TypeInfoModelPackage.Literals.MEMBER__TYPE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Static feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStaticPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Member_static_feature"), //$NON-NLS-1$
+				 getString("_UI_PropertyDescriptor_description", "_UI_Member_static_feature", "_UI_Member_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				 TypeInfoModelPackage.Literals.MEMBER__STATIC,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		final Property property = (Property) object;
-		final String label = property.getName();
-		if (label == null || label.length() == 0) {
-			return getString("_UI_Property_type"); //$NON-NLS-1$
-		}
-		StringBuilder sb = new StringBuilder(label);
-		if (property.getType() != null) {
-			sb.append(':');
-			sb.append(property.getType().getName());
-		}
-		return sb.toString();
+		String label = ((Member)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_Member_type") : //$NON-NLS-1$
+			getString("_UI_Member_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -110,6 +142,13 @@ public class PropertyItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(Member.class)) {
+			case TypeInfoModelPackage.MEMBER__TYPE:
+			case TypeInfoModelPackage.MEMBER__STATIC:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

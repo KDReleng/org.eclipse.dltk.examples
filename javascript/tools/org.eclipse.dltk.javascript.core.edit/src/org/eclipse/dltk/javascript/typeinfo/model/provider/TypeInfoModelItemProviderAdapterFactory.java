@@ -9,14 +9,14 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: ReferenceModelItemProviderAdapterFactory.java,v 1.1 2010/02/27 12:11:31 apanchenk Exp $
+ * $Id: TypeInfoModelItemProviderAdapterFactory.java,v 1.1 2010/05/13 08:00:41 apanchenk Exp $
  */
-package org.eclipse.dltk.javascript.internal.model.references.provider;
+package org.eclipse.dltk.javascript.typeinfo.model.provider;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.eclipse.dltk.javascript.internal.model.references.util.ReferenceModelAdapterFactory;
+import org.eclipse.dltk.javascript.typeinfo.model.util.TypeInfoModelAdapterFactory;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -43,7 +43,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ReferenceModelItemProviderAdapterFactory extends ReferenceModelAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
+public class TypeInfoModelItemProviderAdapterFactory extends TypeInfoModelAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
 	/**
 	 * This keeps track of the root adapter factory that delegates to this adapter factory.
 	 * <!-- begin-user-doc -->
@@ -74,7 +74,7 @@ public class ReferenceModelItemProviderAdapterFactory extends ReferenceModelAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ReferenceModelItemProviderAdapterFactory() {
+	public TypeInfoModelItemProviderAdapterFactory() {
 		supportedTypes.add(IEditingDomainItemProvider.class);
 		supportedTypes.add(IStructuredItemContentProvider.class);
 		supportedTypes.add(ITreeItemContentProvider.class);
@@ -83,7 +83,7 @@ public class ReferenceModelItemProviderAdapterFactory extends ReferenceModelAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.dltk.javascript.internal.model.references.Type} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.dltk.javascript.typeinfo.model.Type} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -91,7 +91,7 @@ public class ReferenceModelItemProviderAdapterFactory extends ReferenceModelAdap
 	protected TypeItemProvider typeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.dltk.javascript.internal.model.references.Type}.
+	 * This creates an adapter for a {@link org.eclipse.dltk.javascript.typeinfo.model.Type}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -106,7 +106,7 @@ public class ReferenceModelItemProviderAdapterFactory extends ReferenceModelAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.dltk.javascript.internal.model.references.Method} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.dltk.javascript.typeinfo.model.Method} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -114,7 +114,7 @@ public class ReferenceModelItemProviderAdapterFactory extends ReferenceModelAdap
 	protected MethodItemProvider methodItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.dltk.javascript.internal.model.references.Method}.
+	 * This creates an adapter for a {@link org.eclipse.dltk.javascript.typeinfo.model.Method}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -129,7 +129,7 @@ public class ReferenceModelItemProviderAdapterFactory extends ReferenceModelAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.dltk.javascript.internal.model.references.Parameter} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.dltk.javascript.typeinfo.model.Parameter} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -137,7 +137,7 @@ public class ReferenceModelItemProviderAdapterFactory extends ReferenceModelAdap
 	protected ParameterItemProvider parameterItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.dltk.javascript.internal.model.references.Parameter}.
+	 * This creates an adapter for a {@link org.eclipse.dltk.javascript.typeinfo.model.Parameter}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -152,7 +152,7 @@ public class ReferenceModelItemProviderAdapterFactory extends ReferenceModelAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.dltk.javascript.internal.model.references.Property} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.dltk.javascript.typeinfo.model.Property} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -160,7 +160,7 @@ public class ReferenceModelItemProviderAdapterFactory extends ReferenceModelAdap
 	protected PropertyItemProvider propertyItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.dltk.javascript.internal.model.references.Property}.
+	 * This creates an adapter for a {@link org.eclipse.dltk.javascript.typeinfo.model.Property}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

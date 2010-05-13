@@ -9,22 +9,20 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: TypeItemProvider.java,v 1.2 2010/02/27 12:46:11 apanchenk Exp $
+ * $Id: TypeItemProvider.java,v 1.1 2010/05/13 08:00:41 apanchenk Exp $
  */
-package org.eclipse.dltk.javascript.internal.model.references.provider;
+package org.eclipse.dltk.javascript.typeinfo.model.provider;
 
 
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.dltk.javascript.internal.model.references.ReferenceModelFactory;
-import org.eclipse.dltk.javascript.internal.model.references.ReferenceModelPackage;
-import org.eclipse.dltk.javascript.internal.model.references.Type;
+import org.eclipse.dltk.javascript.typeinfo.model.Type;
+import org.eclipse.dltk.javascript.typeinfo.model.TypeInfoModelFactory;
+import org.eclipse.dltk.javascript.typeinfo.model.TypeInfoModelPackage;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -36,17 +34,16 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.dltk.javascript.internal.model.references.Type} object.
+ * This is the item provider adapter for a {@link org.eclipse.dltk.javascript.typeinfo.model.Type} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
 public class TypeItemProvider
-	extends ItemProviderAdapter
+	extends ElementItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -74,25 +71,25 @@ public class TypeItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
+			addKindPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Kind feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
+	protected void addKindPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Type_name_feature"), //$NON-NLS-1$
-				 getString("_UI_PropertyDescriptor_description", "_UI_Type_name_feature", "_UI_Type_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				 ReferenceModelPackage.Literals.TYPE__NAME,
+				 getString("_UI_Type_kind_feature"), //$NON-NLS-1$
+				 getString("_UI_PropertyDescriptor_description", "_UI_Type_kind_feature", "_UI_Type_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				 TypeInfoModelPackage.Literals.TYPE__KIND,
 				 true,
 				 false,
 				 false,
@@ -113,7 +110,7 @@ public class TypeItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(ReferenceModelPackage.Literals.TYPE__MEMBERS);
+			childrenFeatures.add(TypeInfoModelPackage.Literals.TYPE__MEMBERS);
 		}
 		return childrenFeatures;
 	}
@@ -168,10 +165,10 @@ public class TypeItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Type.class)) {
-			case ReferenceModelPackage.TYPE__NAME:
+			case TypeInfoModelPackage.TYPE__KIND:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case ReferenceModelPackage.TYPE__MEMBERS:
+			case TypeInfoModelPackage.TYPE__MEMBERS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -191,24 +188,13 @@ public class TypeItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(ReferenceModelPackage.Literals.TYPE__MEMBERS,
-				 ReferenceModelFactory.eINSTANCE.createMethod()));
+				(TypeInfoModelPackage.Literals.TYPE__MEMBERS,
+				 TypeInfoModelFactory.eINSTANCE.createMethod()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(ReferenceModelPackage.Literals.TYPE__MEMBERS,
-				 ReferenceModelFactory.eINSTANCE.createProperty()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return ReferencesEditPlugin.INSTANCE;
+				(TypeInfoModelPackage.Literals.TYPE__MEMBERS,
+				 TypeInfoModelFactory.eINSTANCE.createProperty()));
 	}
 
 }
