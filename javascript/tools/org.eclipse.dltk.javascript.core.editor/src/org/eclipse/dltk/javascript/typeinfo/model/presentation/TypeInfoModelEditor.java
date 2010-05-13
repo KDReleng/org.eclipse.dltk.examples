@@ -9,13 +9,14 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: ReferenceModelEditor.java,v 1.3 2010/02/27 13:02:39 apanchenk Exp $
+ * $Id: TypeInfoModelEditor.java,v 1.1 2010/05/13 08:00:36 apanchenk Exp $
  */
-package org.eclipse.dltk.javascript.internal.model.references.presentation;
+package org.eclipse.dltk.javascript.typeinfo.model.presentation;
 
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -34,55 +35,22 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.dltk.javascript.internal.model.references.provider.ReferenceModelItemProviderAdapterFactory;
-import org.eclipse.emf.common.command.BasicCommandStack;
-import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.common.command.CommandStack;
-import org.eclipse.emf.common.command.CommandStackListener;
-import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.ui.MarkerHelper;
-import org.eclipse.emf.common.ui.editor.ProblemEditorPart;
-import org.eclipse.emf.common.ui.viewer.IViewerProvider;
-import org.eclipse.emf.common.util.BasicDiagnostic;
-import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EValidator;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EContentAdapter;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.emf.edit.domain.IEditingDomainProvider;
-import org.eclipse.emf.edit.provider.AdapterFactoryItemDelegator;
-import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
-import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
-import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
-import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
-import org.eclipse.emf.edit.ui.celleditor.AdapterFactoryTreeEditor;
-import org.eclipse.emf.edit.ui.dnd.EditingDomainViewerDropAdapter;
-import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
-import org.eclipse.emf.edit.ui.dnd.ViewerDragAdapter;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
-import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
-import org.eclipse.emf.edit.ui.util.EditUIUtil;
-import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
+
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -92,16 +60,23 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+
 import org.eclipse.swt.SWT;
+
 import org.eclipse.swt.custom.CTabFolder;
+
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.Transfer;
+
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
+
 import org.eclipse.swt.graphics.Point;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
+
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -109,26 +84,88 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
+
 import org.eclipse.ui.dialogs.SaveAsDialog;
+
 import org.eclipse.ui.ide.IGotoMarker;
+
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
+
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
+import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.command.CommandStack;
+import org.eclipse.emf.common.command.CommandStackListener;
+
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.common.ui.MarkerHelper;
+
+import org.eclipse.emf.common.ui.editor.ProblemEditorPart;
+
+import org.eclipse.emf.common.ui.viewer.IViewerProvider;
+
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.URI;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EValidator;
+
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+
+import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+
+import org.eclipse.emf.edit.provider.AdapterFactoryItemDelegator;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
+
+import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
+
+import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
+
+import org.eclipse.emf.edit.ui.celleditor.AdapterFactoryTreeEditor;
+
+import org.eclipse.emf.edit.ui.dnd.EditingDomainViewerDropAdapter;
+import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
+import org.eclipse.emf.edit.ui.dnd.ViewerDragAdapter;
+
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
+
+import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
+import org.eclipse.emf.edit.ui.util.EditUIUtil;
+
+import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
+
+import org.eclipse.dltk.javascript.typeinfo.model.provider.TypeInfoModelItemProviderAdapterFactory;
+
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
+
 
 /**
- * This is an example of a ReferenceModel model editor.
+ * This is an example of a TypeInfoModel model editor.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ReferenceModelEditor
+public class TypeInfoModelEditor
 	extends MultiPageEditorPart
 	implements IEditingDomainProvider, ISelectionProvider, IMenuListener, IViewerProvider, IGotoMarker {
 	/**
@@ -240,18 +277,18 @@ public class ReferenceModelEditor
 			public void partActivated(IWorkbenchPart p) {
 				if (p instanceof ContentOutline) {
 					if (((ContentOutline)p).getCurrentPage() == contentOutlinePage) {
-						getActionBarContributor().setActiveEditor(ReferenceModelEditor.this);
+						getActionBarContributor().setActiveEditor(TypeInfoModelEditor.this);
 
 						setCurrentViewer(contentOutlineViewer);
 					}
 				}
 				else if (p instanceof PropertySheet) {
 					if (((PropertySheet)p).getCurrentPage() == propertySheetPage) {
-						getActionBarContributor().setActiveEditor(ReferenceModelEditor.this);
+						getActionBarContributor().setActiveEditor(TypeInfoModelEditor.this);
 						handleActivate();
 					}
 				}
-				else if (p == ReferenceModelEditor.this) {
+				else if (p == TypeInfoModelEditor.this) {
 					handleActivate();
 				}
 			}
@@ -414,7 +451,7 @@ public class ReferenceModelEditor
 								 public void run() {
 									 removedResources.addAll(visitor.getRemovedResources());
 									 if (!isDirty()) {
-										 getSite().getPage().closeEditor(ReferenceModelEditor.this, false);
+										 getSite().getPage().closeEditor(TypeInfoModelEditor.this, false);
 									 }
 								 }
 							 });
@@ -425,7 +462,7 @@ public class ReferenceModelEditor
 							(new Runnable() {
 								 public void run() {
 									 changedResources.addAll(visitor.getChangedResources());
-									 if (getSite().getPage().getActiveEditor() == ReferenceModelEditor.this) {
+									 if (getSite().getPage().getActiveEditor() == TypeInfoModelEditor.this) {
 										 handleActivate();
 									 }
 								 }
@@ -457,7 +494,7 @@ public class ReferenceModelEditor
 
 		if (!removedResources.isEmpty()) {
 			if (handleDirtyConflict()) {
-				getSite().getPage().closeEditor(ReferenceModelEditor.this, false);
+				getSite().getPage().closeEditor(TypeInfoModelEditor.this, false);
 			}
 			else {
 				removedResources.clear();
@@ -587,7 +624,7 @@ public class ReferenceModelEditor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ReferenceModelEditor() {
+	public TypeInfoModelEditor() {
 		super();
 		initializeEditingDomain();
 	}
@@ -604,7 +641,7 @@ public class ReferenceModelEditor
 		adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
 		adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
-		adapterFactory.addAdapterFactory(new ReferenceModelItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new TypeInfoModelItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
 		// Create the command stack that will notify this editor as commands are executed.
@@ -1098,8 +1135,8 @@ public class ReferenceModelEditor
 				new ExtendedPropertySheetPage(editingDomain) {
 					@Override
 					public void setSelectionToViewer(List<?> selection) {
-						ReferenceModelEditor.this.setSelectionToViewer(selection);
-						ReferenceModelEditor.this.setFocus();
+						TypeInfoModelEditor.this.setSelectionToViewer(selection);
+						TypeInfoModelEditor.this.setFocus();
 					}
 
 					@Override

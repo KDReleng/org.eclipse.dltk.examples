@@ -9,9 +9,9 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: ReferenceModelActionBarContributor.java,v 1.1 2010/02/27 12:12:18 apanchenk Exp $
+ * $Id: TypeInfoModelActionBarContributor.java,v 1.1 2010/05/13 08:00:36 apanchenk Exp $
  */
-package org.eclipse.dltk.javascript.internal.model.references.presentation;
+package org.eclipse.dltk.javascript.typeinfo.model.presentation;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,12 +51,12 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 
 /**
- * This is the action bar contributor for the ReferenceModel model editor.
+ * This is the action bar contributor for the TypeInfoModel model editor.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ReferenceModelActionBarContributor
+public class TypeInfoModelActionBarContributor
 	extends EditingDomainActionBarContributor
 	implements ISelectionChangedListener {
 	/**
@@ -161,7 +161,7 @@ public class ReferenceModelActionBarContributor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ReferenceModelActionBarContributor() {
+	public TypeInfoModelActionBarContributor() {
 		super(ADDITIONS_LAST_STYLE);
 		loadResourceAction = new LoadResourceAction();
 		validateAction = new ValidateAction();
@@ -176,8 +176,8 @@ public class ReferenceModelActionBarContributor
 	 */
 	@Override
 	public void contributeToToolBar(IToolBarManager toolBarManager) {
-		toolBarManager.add(new Separator("referencemodel-settings")); //$NON-NLS-1$
-		toolBarManager.add(new Separator("referencemodel-additions")); //$NON-NLS-1$
+		toolBarManager.add(new Separator("typeinfomodel-settings")); //$NON-NLS-1$
+		toolBarManager.add(new Separator("typeinfomodel-additions")); //$NON-NLS-1$
 	}
 
 	/**
@@ -191,7 +191,7 @@ public class ReferenceModelActionBarContributor
 	public void contributeToMenu(IMenuManager menuManager) {
 		super.contributeToMenu(menuManager);
 
-		IMenuManager submenuManager = new MenuManager(ReferencesEditorPlugin.INSTANCE.getString("_UI_ReferenceModelEditor_menu"), "org.eclipse.dltk.javascript.internal.model.referencesMenuID"); //$NON-NLS-1$ //$NON-NLS-2$
+		IMenuManager submenuManager = new MenuManager(ReferencesEditorPlugin.INSTANCE.getString("_UI_TypeInfoModelEditor_menu"), "org.eclipse.dltk.javascript.typeinfo.modelMenuID"); //$NON-NLS-1$ //$NON-NLS-2$
 		menuManager.insertAfter("additions", submenuManager); //$NON-NLS-1$
 		submenuManager.add(new Separator("settings")); //$NON-NLS-1$
 		submenuManager.add(new Separator("actions")); //$NON-NLS-1$

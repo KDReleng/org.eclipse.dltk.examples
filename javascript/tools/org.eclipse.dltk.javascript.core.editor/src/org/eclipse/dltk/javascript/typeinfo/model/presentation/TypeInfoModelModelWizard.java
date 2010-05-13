@@ -9,9 +9,9 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: ReferenceModelModelWizard.java,v 1.2 2010/02/27 13:38:51 apanchenk Exp $
+ * $Id: TypeInfoModelModelWizard.java,v 1.1 2010/05/13 08:00:36 apanchenk Exp $
  */
-package org.eclipse.dltk.javascript.internal.model.references.presentation;
+package org.eclipse.dltk.javascript.typeinfo.model.presentation;
 
 
 import java.util.ArrayList;
@@ -32,9 +32,9 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.dltk.javascript.internal.model.references.ReferenceModelFactory;
-import org.eclipse.dltk.javascript.internal.model.references.ReferenceModelPackage;
-import org.eclipse.dltk.javascript.internal.model.references.provider.ReferencesEditPlugin;
+import org.eclipse.dltk.javascript.typeinfo.model.TypeInfoModelFactory;
+import org.eclipse.dltk.javascript.typeinfo.model.TypeInfoModelPackage;
+import org.eclipse.dltk.javascript.typeinfo.model.provider.ReferencesEditPlugin;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -76,7 +76,7 @@ import org.eclipse.ui.part.ISetSelectionTarget;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ReferenceModelModelWizard extends Wizard implements INewWizard {
+public class TypeInfoModelModelWizard extends Wizard implements INewWizard {
 	/**
 	 * The supported extensions for created files.
 	 * <!-- begin-user-doc -->
@@ -84,7 +84,7 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public static final List<String> FILE_EXTENSIONS =
-		Collections.unmodifiableList(Arrays.asList(ReferencesEditorPlugin.INSTANCE.getString("_UI_ReferenceModelEditorFilenameExtensions").split("\\s*,\\s*"))); //$NON-NLS-1$ //$NON-NLS-2$
+		Collections.unmodifiableList(Arrays.asList(ReferencesEditorPlugin.INSTANCE.getString("_UI_TypeInfoModelEditorFilenameExtensions").split("\\s*,\\s*"))); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * A formatted list of supported file extensions, suitable for display.
@@ -93,7 +93,7 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public static final String FORMATTED_FILE_EXTENSIONS =
-		ReferencesEditorPlugin.INSTANCE.getString("_UI_ReferenceModelEditorFilenameExtensions").replaceAll("\\s*,\\s*", ", "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		ReferencesEditorPlugin.INSTANCE.getString("_UI_TypeInfoModelEditorFilenameExtensions").replaceAll("\\s*,\\s*", ", "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 	/**
 	 * This caches an instance of the model package.
@@ -101,7 +101,7 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ReferenceModelPackage referenceModelPackage = ReferenceModelPackage.eINSTANCE;
+	protected TypeInfoModelPackage typeInfoModelPackage = TypeInfoModelPackage.eINSTANCE;
 
 	/**
 	 * This caches an instance of the model factory.
@@ -109,7 +109,7 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ReferenceModelFactory referenceModelFactory = referenceModelPackage.getReferenceModelFactory();
+	protected TypeInfoModelFactory typeInfoModelFactory = typeInfoModelPackage.getTypeInfoModelFactory();
 
 	/**
 	 * This is the file creation page.
@@ -117,7 +117,7 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ReferenceModelModelWizardNewFileCreationPage newFileCreationPage;
+	protected TypeInfoModelModelWizardNewFileCreationPage newFileCreationPage;
 
 	/**
 	 * This is the initial object creation page.
@@ -125,7 +125,7 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ReferenceModelModelWizardInitialObjectCreationPage initialObjectCreationPage;
+	protected TypeInfoModelModelWizardInitialObjectCreationPage initialObjectCreationPage;
 
 	/**
 	 * Remember the selection during initialization for populating the default container.
@@ -161,7 +161,7 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 		this.workbench = workbench;
 		this.selection = selection;
 		setWindowTitle(ReferencesEditorPlugin.INSTANCE.getString("_UI_Wizard_label")); //$NON-NLS-1$
-		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(ReferencesEditorPlugin.INSTANCE.getImage("full/wizban/NewReferenceModel"))); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(ReferencesEditorPlugin.INSTANCE.getImage("full/wizban/NewTypeInfoModel"))); //$NON-NLS-1$
 	}
 
 	/**
@@ -173,7 +173,7 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 	protected Collection<String> getInitialObjectNames() {
 		if (initialObjectNames == null) {
 			initialObjectNames = new ArrayList<String>();
-			initialObjectNames.add(ReferenceModelPackage.Literals.TYPE.getName());
+			initialObjectNames.add(TypeInfoModelPackage.Literals.TYPE.getName());
 			Collections.sort(initialObjectNames, CommonPlugin.INSTANCE.getComparator());
 		}
 		return initialObjectNames;
@@ -186,8 +186,8 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	protected EObject createInitialModel() {
-		EClass eClass = (EClass)referenceModelPackage.getEClassifier(initialObjectCreationPage.getInitialObjectName());
-		EObject rootObject = referenceModelFactory.create(eClass);
+		EClass eClass = (EClass)typeInfoModelPackage.getEClassifier(initialObjectCreationPage.getInitialObjectName());
+		EObject rootObject = typeInfoModelFactory.create(eClass);
 		return rootObject;
 	}
 
@@ -288,14 +288,14 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public class ReferenceModelModelWizardNewFileCreationPage extends WizardNewFileCreationPage {
+	public class TypeInfoModelModelWizardNewFileCreationPage extends WizardNewFileCreationPage {
 		/**
 		 * Pass in the selection.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public ReferenceModelModelWizardNewFileCreationPage(String pageId, IStructuredSelection selection) {
+		public TypeInfoModelModelWizardNewFileCreationPage(String pageId, IStructuredSelection selection) {
 			super(pageId, selection);
 		}
 
@@ -335,7 +335,7 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public class ReferenceModelModelWizardInitialObjectCreationPage extends WizardPage {
+	public class TypeInfoModelModelWizardInitialObjectCreationPage extends WizardPage {
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -363,7 +363,7 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public ReferenceModelModelWizardInitialObjectCreationPage(String pageId) {
+		public TypeInfoModelModelWizardInitialObjectCreationPage(String pageId) {
 			super(pageId);
 		}
 
@@ -373,7 +373,8 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 		 * @generated
 		 */
 		public void createControl(Composite parent) {
-			Composite composite = new Composite(parent, SWT.NONE); {
+			Composite composite = new Composite(parent, SWT.NONE);
+			{
 				GridLayout layout = new GridLayout();
 				layout.numColumns = 1;
 				layout.verticalSpacing = 12;
@@ -548,10 +549,10 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 	public void addPages() {
 		// Create a page, set the title, and the initial model file name.
 		//
-		newFileCreationPage = new ReferenceModelModelWizardNewFileCreationPage("Whatever", selection); //$NON-NLS-1$
-		newFileCreationPage.setTitle(ReferencesEditorPlugin.INSTANCE.getString("_UI_ReferenceModelModelWizard_label")); //$NON-NLS-1$
-		newFileCreationPage.setDescription(ReferencesEditorPlugin.INSTANCE.getString("_UI_ReferenceModelModelWizard_description")); //$NON-NLS-1$
-		newFileCreationPage.setFileName(ReferencesEditorPlugin.INSTANCE.getString("_UI_ReferenceModelEditorFilenameDefaultBase") + "." + FILE_EXTENSIONS.get(0)); //$NON-NLS-1$ //$NON-NLS-2$
+		newFileCreationPage = new TypeInfoModelModelWizardNewFileCreationPage("Whatever", selection); //$NON-NLS-1$
+		newFileCreationPage.setTitle(ReferencesEditorPlugin.INSTANCE.getString("_UI_TypeInfoModelModelWizard_label")); //$NON-NLS-1$
+		newFileCreationPage.setDescription(ReferencesEditorPlugin.INSTANCE.getString("_UI_TypeInfoModelModelWizard_description")); //$NON-NLS-1$
+		newFileCreationPage.setFileName(ReferencesEditorPlugin.INSTANCE.getString("_UI_TypeInfoModelEditorFilenameDefaultBase") + "." + FILE_EXTENSIONS.get(0)); //$NON-NLS-1$ //$NON-NLS-2$
 		addPage(newFileCreationPage);
 
 		// Try and get the resource selection to determine a current directory for the file dialog.
@@ -577,7 +578,7 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 
 					// Make up a unique new name here.
 					//
-					String defaultModelBaseFilename = ReferencesEditorPlugin.INSTANCE.getString("_UI_ReferenceModelEditorFilenameDefaultBase"); //$NON-NLS-1$
+					String defaultModelBaseFilename = ReferencesEditorPlugin.INSTANCE.getString("_UI_TypeInfoModelEditorFilenameDefaultBase"); //$NON-NLS-1$
 					String defaultModelFilenameExtension = FILE_EXTENSIONS.get(0);
 					String modelFilename = defaultModelBaseFilename + "." + defaultModelFilenameExtension; //$NON-NLS-1$
 					for (int i = 1; ((IContainer)selectedResource).findMember(modelFilename) != null; ++i) {
@@ -587,8 +588,8 @@ public class ReferenceModelModelWizard extends Wizard implements INewWizard {
 				}
 			}
 		}
-		initialObjectCreationPage = new ReferenceModelModelWizardInitialObjectCreationPage("Whatever2"); //$NON-NLS-1$
-		initialObjectCreationPage.setTitle(ReferencesEditorPlugin.INSTANCE.getString("_UI_ReferenceModelModelWizard_label")); //$NON-NLS-1$
+		initialObjectCreationPage = new TypeInfoModelModelWizardInitialObjectCreationPage("Whatever2"); //$NON-NLS-1$
+		initialObjectCreationPage.setTitle(ReferencesEditorPlugin.INSTANCE.getString("_UI_TypeInfoModelModelWizard_label")); //$NON-NLS-1$
 		initialObjectCreationPage.setDescription(ReferencesEditorPlugin.INSTANCE.getString("_UI_Wizard_initial_object_description")); //$NON-NLS-1$
 		addPage(initialObjectCreationPage);
 	}

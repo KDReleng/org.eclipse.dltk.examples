@@ -4,11 +4,11 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.dltk.javascript.core.editor;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-ClassPath: .
-Bundle-Activator: org.eclipse.dltk.javascript.internal.model.references.presentation.ReferencesEditorPlugin$Implementation
+Bundle-Activator: org.eclipse.dltk.javascript.typeinfo.model.presentation.ReferencesEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.eclipse.dltk.javascript.internal.model.references.presentation
+Export-Package: org.eclipse.dltk.javascript.typeinfo.model.presentation
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  org.eclipse.dltk.javascript.core.edit;visibility:=reexport,

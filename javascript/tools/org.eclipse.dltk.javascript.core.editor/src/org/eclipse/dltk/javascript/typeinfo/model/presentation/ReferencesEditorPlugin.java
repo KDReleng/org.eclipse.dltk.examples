@@ -9,9 +9,9 @@
  * Contributors:
  *     xored software, Inc. - initial API and Implementation (Alex Panchenko)
  *
- * $Id: ReferencesEditorPlugin.java,v 1.1 2010/02/27 12:12:18 apanchenk Exp $
+ * $Id: ReferencesEditorPlugin.java,v 1.1 2010/05/13 08:00:36 apanchenk Exp $
  */
-package org.eclipse.dltk.javascript.internal.model.references.presentation;
+package org.eclipse.dltk.javascript.typeinfo.model.presentation;
 
 import org.eclipse.emf.common.EMFPlugin;
 
