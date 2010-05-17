@@ -1,11 +1,7 @@
 package org.eclipse.dltk.devtools.handleidentitiers;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -15,14 +11,14 @@ import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.core.IModelElementVisitor;
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.ModelException;
+import org.eclipse.dltk.core.ScriptModelUtil;
 import org.eclipse.dltk.ui.viewsupport.ScriptUILabelProvider;
 import org.eclipse.jface.util.SafeRunnable;
+import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.IColorProvider;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -44,56 +40,10 @@ public class HandleIdentifiersView extends ViewPart {
 	Combo projectNames;
 	TableViewer output;
 
-	private static class HandleIdentifierContentProvider implements
-			IStructuredContentProvider {
-
-		public void dispose() {
-		}
-
-		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		}
-
-		public Object[] getElements(Object inputElement) {
-			if (inputElement instanceof List<?>) {
-				return ((List<?>) inputElement).toArray();
-			} else {
-				return new Object[0];
-			}
-		}
-
-	}
-
-	private static class ElementTypeDescriber {
-		final Map<Integer, String> names = new HashMap<Integer, String>();
-
-		public ElementTypeDescriber() {
-			for (Field field : IModelElement.class.getFields()) {
-				if (Modifier.isPublic(field.getModifiers())
-						&& Modifier.isStatic(field.getModifiers())) {
-					try {
-						Integer value = (Integer) field.get(null);
-						names.put(value.intValue(), field.getName());
-					} catch (Exception e) {
-						//
-					}
-				}
-			}
-		}
-
-		public String describe(int elementType) {
-			String name = names.get(elementType);
-			if (name == null) {
-				name = "#" + elementType;
-			}
-			return name;
-		}
-	}
-
 	private static class HandleIdentifierLabelProvider extends LabelProvider
 			implements ITableLabelProvider, IColorProvider {
 
 		private final ScriptUILabelProvider scriptProvider = new ScriptUILabelProvider();
-		private final ElementTypeDescriber typeDescriber = new ElementTypeDescriber();
 
 		@Override
 		public String getText(Object element) {
@@ -118,8 +68,9 @@ public class HandleIdentifiersView extends ViewPart {
 				case 0:
 					return scriptProvider.getText(record.element)
 							+ " ["
-							+ typeDescriber.describe(record.element
-									.getElementType()) + "]";
+							+ ScriptModelUtil
+									.describeElementType(record.element
+											.getElementType()) + "]";
 				case 1:
 					return record.identifier;
 				case 2:
@@ -190,7 +141,7 @@ public class HandleIdentifiersView extends ViewPart {
 				SWT.LEFT);
 		statusColumn.setText("Status");
 		statusColumn.setWidth(100);
-		output.setContentProvider(new HandleIdentifierContentProvider());
+		output.setContentProvider(ArrayContentProvider.getInstance());
 		output.setLabelProvider(new HandleIdentifierLabelProvider());
 		output.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
 		final List<String> names = new ArrayList<String>();
