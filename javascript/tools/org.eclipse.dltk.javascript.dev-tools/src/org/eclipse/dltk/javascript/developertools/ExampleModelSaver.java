@@ -39,6 +39,8 @@ public class ExampleModelSaver implements IApplication {
 		id.setName("id");
 		id.setType(numberType);
 		exampleType.getMembers().add(id);
+		id.setAttribute("a", 1);
+		id.setAttribute("b", 2L);
 		//
 		final Property name = typeInfoFactory.createProperty();
 		name.setName("name");
