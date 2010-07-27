@@ -36,7 +36,7 @@ public class ExampleElementDocumentationProvider implements
 	}
 
 	@Override
-	public IDocumentationResponse describeElement(IDocumentableElement element) {
+	public IDocumentationResponse getDocumentationFor(IDocumentableElement element) {
 		if (element instanceof ElementWrapper) {
 			final Element jsElement = ((ElementWrapper) element).element;
 			if (jsElement.getDescription() != null
