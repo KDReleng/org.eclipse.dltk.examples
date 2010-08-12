@@ -3,8 +3,8 @@
 <plugin>
    <extension
          point="org.eclipse.dltk.ui.openDelegate">
-      <adapter
+      <delegate
             class="org.eclipse.dltk.javascript.example.docprovider.ElementOpenDelegate">
-      </adapter>
+      </delegate>
    </extension>
 </plugin>
