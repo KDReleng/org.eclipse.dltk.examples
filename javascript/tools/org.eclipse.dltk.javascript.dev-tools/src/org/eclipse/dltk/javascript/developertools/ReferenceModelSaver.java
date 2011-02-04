@@ -29,6 +29,7 @@ import org.eclipse.dltk.internal.javascript.typeinference.NativeNumberReference;
 import org.eclipse.dltk.internal.javascript.typeinference.NativeStringReference;
 import org.eclipse.dltk.internal.javascript.typeinference.NativeXMLReference;
 import org.eclipse.dltk.internal.javascript.typeinference.StandardSelfCompletingReference;
+import org.eclipse.dltk.javascript.typeinfo.TypeInfoUtil;
 import org.eclipse.dltk.javascript.typeinfo.model.Member;
 import org.eclipse.dltk.javascript.typeinfo.model.Method;
 import org.eclipse.dltk.javascript.typeinfo.model.Parameter;
@@ -59,8 +60,8 @@ public class ReferenceModelSaver {
 		List<Type> typeList = new ArrayList<Type>(types.values());
 		Collections.sort(typeList, new Comparator<Type>() {
 			public int compare(Type o1, Type o2) {
-				return String.CASE_INSENSITIVE_ORDER.compare(o1.getName(), o2
-						.getName());
+				return String.CASE_INSENSITIVE_ORDER.compare(o1.getName(),
+						o2.getName());
 			}
 		});
 		for (Type type : typeList) {
@@ -75,12 +76,12 @@ public class ReferenceModelSaver {
 			final Map<Class<? extends StandardSelfCompletingReference>, Type> types) {
 		final Type type = types.get(typeRef.getClass());
 		Assert.isNotNull(type);
-		final List<IReference> children = new ArrayList<IReference>(typeRef
-				.getChilds(true));
+		final List<IReference> children = new ArrayList<IReference>(
+				typeRef.getChilds(true));
 		Collections.sort(children, new Comparator<IReference>() {
 			public int compare(IReference o1, IReference o2) {
-				return String.CASE_INSENSITIVE_ORDER.compare(o1.getName(), o2
-						.getName());
+				return String.CASE_INSENSITIVE_ORDER.compare(o1.getName(),
+						o2.getName());
 			}
 		});
 		for (IReference reference : children) {
@@ -109,7 +110,7 @@ public class ReferenceModelSaver {
 				member = TypeInfoModelFactory.eINSTANCE.createProperty();
 			}
 			member.setName(reference.getName());
-			member.setType(types.get(ref.getClass()));
+			member.setType(TypeInfoUtil.ref(types.get(ref.getClass())));
 			member.setDescription(ref.getProposalInfo());
 			type.getMembers().add(member);
 		}
