@@ -29,7 +29,7 @@ import org.eclipse.dltk.internal.javascript.typeinference.NativeNumberReference;
 import org.eclipse.dltk.internal.javascript.typeinference.NativeStringReference;
 import org.eclipse.dltk.internal.javascript.typeinference.NativeXMLReference;
 import org.eclipse.dltk.internal.javascript.typeinference.StandardSelfCompletingReference;
-import org.eclipse.dltk.javascript.typeinfo.TypeInfoUtil;
+import org.eclipse.dltk.javascript.typeinfo.TypeUtil;
 import org.eclipse.dltk.javascript.typeinfo.model.Member;
 import org.eclipse.dltk.javascript.typeinfo.model.Method;
 import org.eclipse.dltk.javascript.typeinfo.model.Parameter;
@@ -110,7 +110,7 @@ public class ReferenceModelSaver {
 				member = TypeInfoModelFactory.eINSTANCE.createProperty();
 			}
 			member.setName(reference.getName());
-			member.setType(TypeInfoUtil.ref(types.get(ref.getClass())));
+			member.setType(TypeUtil.ref(types.get(ref.getClass())));
 			member.setDescription(ref.getProposalInfo());
 			type.getMembers().add(member);
 		}

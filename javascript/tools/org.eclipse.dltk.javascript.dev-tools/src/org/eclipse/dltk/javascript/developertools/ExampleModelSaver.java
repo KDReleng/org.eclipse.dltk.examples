@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.eclipse.dltk.javascript.developertools;
 
-import org.eclipse.dltk.javascript.typeinfo.TypeInfoUtil;
+import org.eclipse.dltk.javascript.typeinfo.TypeUtil;
 import org.eclipse.dltk.javascript.typeinfo.model.Property;
 import org.eclipse.dltk.javascript.typeinfo.model.Type;
 import org.eclipse.dltk.javascript.typeinfo.model.TypeInfoModelFactory;
@@ -38,15 +38,20 @@ public class ExampleModelSaver implements IApplication {
 		//
 		final Property id = typeInfoFactory.createProperty();
 		id.setName("id");
-		id.setType(TypeInfoUtil.ref(numberType));
+		id.setType(TypeUtil.ref(numberType));
 		exampleType.getMembers().add(id);
-		id.setAttribute("a", 1);
-		id.setAttribute("b", 2L);
+		// id.setAttribute("a", 1);
+		// id.setAttribute("b", 2L);
 		//
 		final Property name = typeInfoFactory.createProperty();
 		name.setName("name");
-		name.setType(TypeInfoUtil.ref(stringType));
+		name.setType(TypeUtil.ref(stringType));
 		exampleType.getMembers().add(name);
+		//
+		final Property names = typeInfoFactory.createProperty();
+		names.setName("names");
+		names.setType(TypeUtil.arrayOf(TypeUtil.ref(stringType)));
+		exampleType.getMembers().add(names);
 		//
 		resource.getContents().add((EObject) exampleType);
 		resource.setEncoding("UTF-8");
