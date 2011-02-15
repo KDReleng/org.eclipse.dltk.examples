@@ -43,6 +43,11 @@ public class ExampleModelSaver implements IApplication {
 		// id.setAttribute("a", 1);
 		// id.setAttribute("b", 2L);
 		//
+		final Property uid = typeInfoFactory.createProperty();
+		uid.setName("uid");
+		uid.setType(TypeUtil.ref("UID"));
+		exampleType.getMembers().add(uid);
+		//
 		final Property name = typeInfoFactory.createProperty();
 		name.setName("name");
 		name.setType(TypeUtil.ref(stringType));
