@@ -48,6 +48,9 @@ public class ExampleModelSaver implements IApplication {
 		exampleType.getMembers()
 				.add(createProperty("uid", TypeUtil.ref("UID")));
 		exampleType.getMembers().add(
+				createProperty("undef",
+						TypeInfoModelFactory.eINSTANCE.createUndefinedType()));
+		exampleType.getMembers().add(
 				createProperty("name", TypeUtil.ref(stringType)));
 		exampleType.getMembers().add(
 				createProperty("names",
