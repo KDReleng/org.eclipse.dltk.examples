@@ -6,7 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.dltk.debug.examples.console.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.dltk.debug.ui;bundle-version="3.0.0",
+ org.eclipse.dltk.debug.ui;bundle-version="4.0.0",
  org.eclipse.ui.console;bundle-version="3.5.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
