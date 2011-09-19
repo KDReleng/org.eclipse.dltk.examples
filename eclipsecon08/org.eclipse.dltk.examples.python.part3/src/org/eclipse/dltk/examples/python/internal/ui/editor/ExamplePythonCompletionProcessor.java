@@ -17,11 +17,4 @@ public class ExamplePythonCompletionProcessor extends ScriptCompletionProcessor 
 	protected String getNatureId() {
 		return ExamplePythonNature.PYTHON_NATURE;
 	}
-
-	protected CompletionProposalLabelProvider getProposalLabelProvider() {
-		return new CompletionProposalLabelProvider();
-	}
-	protected IPreferenceStore getPreferenceStore() {
-		return PythonCorePlugin.getDefault().getPreferenceStore();
-	}
 }

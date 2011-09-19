@@ -26,7 +26,7 @@ public class ExamplePythonEditor extends ScriptEditor {
 		return EDITOR_ID;
 	}
 
-	protected IPreferenceStore getScriptPreferenceStore() {
+	public IPreferenceStore getScriptPreferenceStore() {
 		return ExamplePythonUI.getDefault().getPreferenceStore();
 	}
 
