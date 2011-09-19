@@ -2,7 +2,6 @@ package org.eclipse.dltk.examples.python.internal.selection;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.dltk.ast.ASTVisitor;
 import org.eclipse.dltk.ast.declarations.MethodDeclaration;
@@ -10,8 +9,7 @@ import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
 import org.eclipse.dltk.ast.declarations.TypeDeclaration;
 import org.eclipse.dltk.ast.expressions.Expression;
 import org.eclipse.dltk.ast.references.VariableReference;
-import org.eclipse.dltk.codeassist.ISelectionEngine;
-import org.eclipse.dltk.codeassist.ISelectionRequestor;
+import org.eclipse.dltk.codeassist.ScriptSelectionEngine;
 import org.eclipse.dltk.compiler.env.IModuleSource;
 import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.core.IModelElement;
@@ -20,7 +18,7 @@ import org.eclipse.dltk.core.ModelException;
 import org.eclipse.dltk.core.SourceParserUtil;
 import org.eclipse.dltk.python.parser.ast.expressions.ExtendedVariableReference;
 
-public class ExamplePythonSelectionEngine implements ISelectionEngine {
+public class ExamplePythonSelectionEngine extends ScriptSelectionEngine {
 	private org.eclipse.dltk.core.ISourceModule sourceModule;
 
 	public IModelElement[] select(IModuleSource module, final int offset, int i) {
@@ -95,10 +93,4 @@ public class ExamplePythonSelectionEngine implements ISelectionEngine {
 		}
 	}
 
-	public void setOptions(Map options) {
-	}
-
-	@Override
-	public void setRequestor(ISelectionRequestor requestor) {
-	}
 }
