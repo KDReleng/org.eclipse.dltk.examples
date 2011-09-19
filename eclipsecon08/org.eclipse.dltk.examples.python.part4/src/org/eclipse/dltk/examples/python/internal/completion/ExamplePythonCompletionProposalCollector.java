@@ -2,6 +2,7 @@ package org.eclipse.dltk.examples.python.internal.completion;
 
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.ISourceModule;
+import org.eclipse.dltk.examples.internal.python.core.ExamplePythonNature;
 import org.eclipse.dltk.ui.text.completion.ScriptCompletionProposal;
 import org.eclipse.dltk.ui.text.completion.ScriptCompletionProposalCollector;
 import org.eclipse.dltk.ui.text.completion.ScriptOverrideCompletionProposal;
@@ -43,5 +44,10 @@ public class ExamplePythonCompletionProposalCollector extends
 		return new ScriptOverrideCompletionProposal(scriptProject, compilationUnit,
 				name, paramTypes, start, length, displayName,
 				completionProposal);
+	}
+
+	@Override
+	protected String getNatureId() {
+		return ExamplePythonNature.PYTHON_NATURE;
 	}
 }
