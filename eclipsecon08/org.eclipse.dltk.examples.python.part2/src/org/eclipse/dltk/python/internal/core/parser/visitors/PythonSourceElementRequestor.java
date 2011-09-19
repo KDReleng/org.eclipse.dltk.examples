@@ -415,7 +415,7 @@ public class PythonSourceElementRequestor extends SourceElementRequestVisitor {
 		mi.nameSourceEnd = method.getNameEnd() - 1;
 		mi.declarationStart = method.sourceStart();
 
-		((ISourceElementRequestor) this.fRequestor).enterMethodRemoveSame(mi);
+		((ISourceElementRequestor) this.fRequestor).enterMethod(mi);
 
 		this.fInMethod = true;
 		this.fCurrentMethod = method;
